@@ -7,6 +7,13 @@ package com.mns.cda.calculatrice.operation;
 public interface IOperation {
 
     /**
+     * Retourne le symbole de l'opérateur.
+     *
+     * @return symbole de l'opérateur (ex : "+", "-", "*", "/")
+     */
+    String getSymbole();
+
+    /**
      * Effectue le calcul entre deux opérandes.
      *
      * @param a premier opérande
