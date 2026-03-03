@@ -20,6 +20,8 @@ public class Main {
         registre.enregistrer(new Addition());
         registre.enregistrer(new Multiplication());
         registre.enregistrer(new Division());
+        registre.enregistrer(new Modulo());
+        registre.enregistrer(new Puissance());
 
         Decoupeur decoupeur = new Decoupeur();
         Validateur validateur = new Validateur(registre);
