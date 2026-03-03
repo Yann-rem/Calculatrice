@@ -2,6 +2,9 @@ package com.mns.cda.calculatrice.operation;
 
 import com.mns.cda.calculatrice.operation.exception.ModuloParZeroException;
 
+/**
+ * Implémentation du modulo.
+ */
 public class Modulo implements IOperation {
 
     @Override
