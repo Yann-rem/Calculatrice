@@ -1,17 +1,54 @@
 package com.mns.cda;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import com.mns.cda.calculatrice.operation.*;
+import com.mns.cda.calculatrice.operation.parser.Decoupeur;
+import com.mns.cda.calculatrice.operation.parser.Validateur;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+import java.util.Scanner;
+
+/**
+ * Point d'entrée de l'application.
+ * Gère la boucle de saisie et l'affichage des résultats.
+ * Aucune logique métier ici.
+ */
+public class Main {
+
+    public static void main(String[] args) {
+
+        OperationRegistry registre = new OperationRegistry();
+        registre.enregistrer(new Addition());
+        registre.enregistrer(new Addition());
+        registre.enregistrer(new Multiplication());
+        registre.enregistrer(new Division());
+
+        Decoupeur decoupeur = new Decoupeur();
+        Validateur validateur = new Validateur(registre);
+        CalculatriceService service = new CalculatriceService(decoupeur, validateur, registre);
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== Calculatrice ===");
+        System.out.println("Format : valeur1 opérateur valeur2");
+        System.out.println("Tapez 'quitter' pour sortir.");
+        System.out.println();
+
+        while (true) {
+            System.out.print("> ");
+            String expression = scanner.nextLine();
+
+            if (expression.equalsIgnoreCase("quitter")) {
+                System.out.println("Au revoir !");
+                break;
+            }
+
+            try {
+                double resultat = service.evaluer(expression);
+                System.out.println("Résultat : " + resultat);
+            } catch (Exception e) {
+                System.out.println("Erreur : " + e.getMessage());
+            }
         }
+
+        scanner.close();
     }
 }
