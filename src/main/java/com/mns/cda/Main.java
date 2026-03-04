@@ -19,7 +19,7 @@ public class Main {
 
         OperationRegistry registre = new OperationRegistry();
         registre.enregistrer(new Addition());
-        registre.enregistrer(new Addition());
+        registre.enregistrer(new Soustraction());
         registre.enregistrer(new Multiplication());
         registre.enregistrer(new Division());
         registre.enregistrer(new Modulo());
