@@ -48,14 +48,14 @@ public class Main {
                 break;
             }
 
-            // TODO : revoir cela en clean code avec peut être un early return.
             if (expression.equalsIgnoreCase("historique")) {
                 if (historique.lister().isEmpty()) {
                     System.out.println("Aucun calcul dans l'historique.");
-                } else {
-                    for (Calcul calcul : historique.lister()) {
-                        System.out.println("  " + calcul);
-                    }
+                    continue;
+                }
+
+                for (Calcul calcul : historique.lister()) {
+                    System.out.println("  " + calcul);
                 }
                 continue;
             }
