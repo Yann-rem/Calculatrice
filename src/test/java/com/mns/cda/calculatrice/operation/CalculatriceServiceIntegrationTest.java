@@ -4,14 +4,14 @@ import com.mns.cda.calculatrice.operation.exception.DivisionParZeroException;
 import com.mns.cda.calculatrice.operation.exception.FormatIncorrectException;
 import com.mns.cda.calculatrice.operation.exception.OperateurInconnuException;
 import com.mns.cda.calculatrice.operation.exception.ValeurNonNumeriqueException;
+import com.mns.cda.calculatrice.operation.historique.HistoriqueEnMemoire;
 import com.mns.cda.calculatrice.operation.parser.Decoupeur;
 import com.mns.cda.calculatrice.operation.parser.Validateur;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculatriceServiceIntegrationTest {
 
@@ -27,7 +27,8 @@ public class CalculatriceServiceIntegrationTest {
 
         Decoupeur decoupeur = new Decoupeur();
         Validateur validateur = new Validateur(registre);
-        service = new CalculatriceService(decoupeur, validateur, registre);
+        HistoriqueEnMemoire historique = new HistoriqueEnMemoire();
+        service = new CalculatriceService(decoupeur, validateur, registre, historique);
     }
 
     @Test
@@ -70,6 +71,29 @@ public class CalculatriceServiceIntegrationTest {
     @DisplayName("Calcul avec des nombres négatifs")
     void calculNombresNegatifs() {
         assertEquals(-5.0, service.evaluer("-3 + -2"));
+    }
+
+    @Test
+    @DisplayName("Calcul ajouté à l'historique")
+    void calculAjouteAHistorique() {
+        service.evaluer("2 + 3");
+        assertEquals(1, service.getHistorique().lister().size());
+        assertEquals("2 + 3 = 5.0", service.getHistorique().lister().get(0).toString());
+    }
+
+    @Test
+    @DisplayName("Plusieurs calculs ajoutés à l'historique")
+    void plusieursCalculsDansHistorique() {
+        service.evaluer("2 + 3");
+        service.evaluer("10 / 2");
+        assertEquals(2, service.getHistorique().lister().size());
+    }
+
+    @Test
+    @DisplayName("Calcul en erreur pas ajouté à l'historique")
+    void CalculEnErreurPasAjouteAHistorique() {
+        assertThrows(DivisionParZeroException.class, () -> service.evaluer("10 / 0"));
+        assertTrue(service.getHistorique().lister().isEmpty());
     }
 
     @Test
