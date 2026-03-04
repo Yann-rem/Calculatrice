@@ -1,6 +1,8 @@
 package com.mns.cda;
 
 import com.mns.cda.calculatrice.operation.*;
+import com.mns.cda.calculatrice.operation.historique.HistoriqueEnMemoire;
+import com.mns.cda.calculatrice.operation.model.Calcul;
 import com.mns.cda.calculatrice.operation.parser.Decoupeur;
 import com.mns.cda.calculatrice.operation.parser.Validateur;
 
@@ -25,12 +27,15 @@ public class Main {
 
         Decoupeur decoupeur = new Decoupeur();
         Validateur validateur = new Validateur(registre);
-        CalculatriceService service = new CalculatriceService(decoupeur, validateur, registre);
+        IHistorique historique = new HistoriqueEnMemoire();
+
+        CalculatriceService service = new CalculatriceService(decoupeur, validateur, registre, historique);
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("=== Calculatrice ===");
         System.out.println("Format : valeur1 opérateur valeur2");
+        System.out.println("Tapez 'historique' pour voir les l'historique des calculs.");
         System.out.println("Tapez 'quitter' pour sortir.");
         System.out.println();
 
@@ -41,6 +46,18 @@ public class Main {
             if (expression.equalsIgnoreCase("quitter")) {
                 System.out.println("Au revoir !");
                 break;
+            }
+
+            // TODO : revoir cela en clean code avec peut être un early return.
+            if (expression.equalsIgnoreCase("historique")) {
+                if (historique.lister().isEmpty()) {
+                    System.out.println("Aucun calcul dans l'historique.");
+                } else {
+                    for (Calcul calcul : historique.lister()) {
+                        System.out.println("  " + calcul);
+                    }
+                }
+                continue;
             }
 
             try {
