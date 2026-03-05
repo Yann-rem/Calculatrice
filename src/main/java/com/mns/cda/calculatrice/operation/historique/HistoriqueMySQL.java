@@ -21,7 +21,10 @@ public class HistoriqueMySQL implements IHistorique {
     @Override
     public void ajouter(Calcul calcul) {
 
-        String sql = "INSERT INTO calcul (expression, resultat) VALUES (?, ?)";
+        String sql = """
+                INSERT INTO calcul (expression, resultat)
+                VALUES (?, ?)
+                """;
 
         try (PreparedStatement stmt =
                      connexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -43,7 +46,11 @@ public class HistoriqueMySQL implements IHistorique {
     @Override
     public List<Calcul> lister() {
 
-        String sql = "SELECT id, expression, resultat, horodatage FROM calcul ORDER BY id ASC";
+        String sql = """
+                SELECT id, expression, resultat, horodatage
+                FROM calcul
+                ORDER BY id ASC
+                """;
         List<Calcul> calculs = new ArrayList<>();
 
         try (PreparedStatement stmt = connexion.prepareStatement(sql);
