@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Interface définissant le contrat pour la gestion de l'historique des calculs.
+ * Permet de basculer entre différentes implémentations.
  */
 public interface IHistorique {
 
@@ -17,9 +18,9 @@ public interface IHistorique {
     void ajouter(Calcul calcul);
 
     /**
-     * Retourne la liste des calculs effectués.
+     * Retourne l'historique des calculs.
      *
-     * @return liste des calculs
+     * @return historique des calculs
      */
     List<Calcul> lister();
 }
