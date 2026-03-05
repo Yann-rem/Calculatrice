@@ -41,14 +41,14 @@ public class Main {
 
         while (true) {
             System.out.print("> ");
-            String expression = scanner.nextLine();
+            String saisie = scanner.nextLine();
 
-            if (expression.equalsIgnoreCase("quitter")) {
+            if (saisie.equalsIgnoreCase("quitter")) {
                 System.out.println("Au revoir !");
                 break;
             }
 
-            if (expression.equalsIgnoreCase("historique")) {
+            if (saisie.equalsIgnoreCase("historique")) {
                 if (historique.lister().isEmpty()) {
                     System.out.println("Aucun calcul dans l'historique.");
                     continue;
@@ -61,7 +61,7 @@ public class Main {
             }
 
             try {
-                double resultat = service.evaluer(expression);
+                double resultat = service.evaluer(saisie);
                 System.out.println("Résultat : " + resultat);
             } catch (Exception e) {
                 System.out.println("Erreur : " + e.getMessage());
