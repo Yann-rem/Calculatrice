@@ -23,8 +23,9 @@ public class HistoriqueMySQL implements IHistorique {
 
         String sql = "INSERT INTO calcul (expression, resultat) VALUES (?, ?)";
 
-        try {
-            PreparedStatement stmt = connexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement stmt =
+                     connexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             stmt.setString(1, calcul.getExpression());
             stmt.setDouble(2, calcul.getResultat());
             stmt.executeUpdate();
@@ -45,9 +46,8 @@ public class HistoriqueMySQL implements IHistorique {
         String sql = "SELECT id, expression, resultat, horodatage FROM calcul ORDER BY id ASC";
         List<Calcul> calculs = new ArrayList<>();
 
-        try {
-            PreparedStatement stmt = connexion.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement stmt = connexion.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 Calcul calcul = new Calcul(
