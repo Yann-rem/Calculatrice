@@ -22,4 +22,9 @@ public class HistoriqueEnMemoire implements IHistorique {
     public List<Calcul> lister() {
         return List.copyOf(calculs);
     }
+
+    @Override
+    public void vider() {
+        calculs.clear();
+    }
 }

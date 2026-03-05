@@ -41,6 +41,15 @@ public class HistoriqueEnMemoireTest {
     }
 
     @Test
+    @DisplayName("Vider l'historique")
+    void viderHistorique() {
+        historique.ajouter(new Calcul("2 + 3", 5.0));
+        historique.ajouter(new Calcul("10 / 2", 5.0));
+        historique.vider();
+        assertTrue(historique.lister().isEmpty());
+    }
+
+    @Test
     @DisplayName("Les calculs sont retournés dans l'ordre d'ajout")
     void ordreDesCalculs() {
         historique.ajouter(new Calcul("2 + 3", 5.0));

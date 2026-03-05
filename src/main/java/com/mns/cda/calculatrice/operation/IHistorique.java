@@ -23,4 +23,9 @@ public interface IHistorique {
      * @return historique des calculs
      */
     List<Calcul> lister();
+
+    /**
+     * Vide l'historique des calculs.
+     */
+    void vider();
 }
