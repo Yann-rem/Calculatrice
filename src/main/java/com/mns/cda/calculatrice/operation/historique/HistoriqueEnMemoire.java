@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implémentation de l'historique en mémoire.
+ * Implémentation de l'historique des calculs en mémoire.
  */
 public class HistoriqueEnMemoire implements IHistorique {
 
