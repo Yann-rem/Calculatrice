@@ -1,6 +1,6 @@
 package com.mns.cda.calculatrice.operation;
 
-import com.mns.cda.calculatrice.operation.exception.ModuloParZeroException;
+import com.mns.cda.calculatrice.operation.exception.DivisionParZeroException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -42,8 +42,8 @@ class ModuloTest {
     }
 
     @Test
-    @DisplayName("Modulo par zéro lève ModuloParZeroException")
+    @DisplayName("Modulo par zéro lève DivisionParZeroException")
     void moduloParZero() {
-        assertThrows(ModuloParZeroException.class, () -> modulo.calculer(10, 0));
+        assertThrows(DivisionParZeroException.class, () -> modulo.calculer(10, 0));
     }
 }

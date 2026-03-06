@@ -8,4 +8,8 @@ public class DivisionParZeroException extends ArithmeticException {
     public DivisionParZeroException() {
         super("Division par zéro impossible.");
     }
+
+    public DivisionParZeroException(String message) {
+        super(message);
+    }
 }
