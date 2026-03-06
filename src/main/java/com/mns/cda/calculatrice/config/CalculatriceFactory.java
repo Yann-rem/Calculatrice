@@ -17,6 +17,7 @@ public class CalculatriceFactory {
 
     private final Configuration configuration;
     private Connection connection;
+    private IHistorique historique;
 
     public CalculatriceFactory() {
         this.configuration = new Configuration();
@@ -34,6 +35,10 @@ public class CalculatriceFactory {
     }
 
     public IHistorique creerHistorique() {
+        if (historique != null) {
+            return historique;
+        }
+
         String mode = configuration.getHistoriqueMode();
 
         if ("mysql".equalsIgnoreCase(mode)) {
@@ -42,13 +47,15 @@ public class CalculatriceFactory {
                         configuration.getDbUrl(),
                         configuration.getDbUser(),
                         configuration.getDbPassword());
-                return new HistoriqueMySQL(connection);
+                historique = new HistoriqueMySQL(connection);
             } catch (SQLException e) {
                 throw new RuntimeException("Erreur de connexion à la base de données.", e);
             }
+        } else {
+            historique = new HistoriqueEnMemoire();
         }
 
-        return new HistoriqueEnMemoire();
+        return historique;
     }
 
     public CalculatriceService creerService() {
@@ -61,7 +68,7 @@ public class CalculatriceFactory {
     }
 
     public IHistorique getHistorique() {
-        return creerService().getHistorique();
+        return creerHistorique();
     }
 
     public void fermerConnection() {
