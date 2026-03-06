@@ -77,6 +77,10 @@ Considérant que la matière était suffisante, nous avons ensuite commencé l'i
 
 Pour finir, nous nous sommes occupés du point d'entrée de notre application (d'abord en mode console (`Main`), puis en mode graphique (`MainGUI`)) en veillant à ce qu'aucune logique métier ne s'y trouve : ces classes ne font qu'assembler les dépendances et déléguer le travail.
 
+## Conception
+
+[Diagramme de classes](docs/diagramme_classes.png)
+
 ## Choix de conception
 
 **Strategy Pattern pour les opérations** : Chaque opération arithmétique implémente l'interface `IOperation`. L'ajout d'un nouvel opérateur se fait en créant une nouvelle classe sans modifier le code existant (Open/Closed Principle).
