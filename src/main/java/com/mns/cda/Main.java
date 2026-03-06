@@ -25,7 +25,7 @@ public class Main {
 
         System.out.println("=== Calculatrice ===");
         System.out.println("Format : valeur1 opérateur valeur2");
-        System.out.println("Tapez 'historique' pour voir les l'historique des calculs.");
+        System.out.println("Tapez 'historique' pour voir l'historique des calculs.");
         System.out.println("Tapez 'quitter' pour sortir.");
         System.out.println();
 

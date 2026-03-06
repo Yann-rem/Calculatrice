@@ -1,7 +1,7 @@
 package com.mns.cda.calculatrice.operation.parser;
 
 /**
- * Responsable du découpage d'une expresssion en jetons.
+ * Responsable du découpage d'une expression en jetons.
  */
 public class Decoupeur {
 

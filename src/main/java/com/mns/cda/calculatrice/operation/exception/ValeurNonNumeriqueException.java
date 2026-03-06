@@ -1,7 +1,7 @@
 package com.mns.cda.calculatrice.operation.exception;
 
 /**
- * Exception pour les valeurs non numérique.
+ * Exception pour les valeurs non numériques.
  */
 public class ValeurNonNumeriqueException extends RuntimeException {
 
