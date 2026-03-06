@@ -23,8 +23,8 @@ public class CalculatriceFactory {
         this.configuration = new Configuration();
     }
 
-    public OperationRegistry creerRegistre() {
-        OperationRegistry registre = new OperationRegistry();
+    public OperationRegistre creerRegistre() {
+        OperationRegistre registre = new OperationRegistre();
         registre.enregistrer(new Addition());
         registre.enregistrer(new Soustraction());
         registre.enregistrer(new Multiplication());
@@ -59,7 +59,7 @@ public class CalculatriceFactory {
     }
 
     public CalculatriceService creerService() {
-        OperationRegistry registry = creerRegistre();
+        OperationRegistre registry = creerRegistre();
         Decoupeur decoupeur = new Decoupeur();
         Validateur validateur = new Validateur(registry);
         IHistorique historique = creerHistorique();

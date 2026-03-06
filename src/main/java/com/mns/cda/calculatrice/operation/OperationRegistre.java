@@ -7,7 +7,7 @@ import java.util.Map;
  * Registre des opérations disponibles.
  * Associe chaque symbole d'opérateur à son implémentation.
  */
-public class OperationRegistry {
+public class OperationRegistre {
 
     private final Map<String, IOperation> operations = new HashMap<>();
 
