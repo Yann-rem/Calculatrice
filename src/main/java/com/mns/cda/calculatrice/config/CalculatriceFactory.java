@@ -15,7 +15,12 @@ import java.sql.SQLException;
  */
 public class CalculatriceFactory {
 
+    private final Configuration configuration;
     private Connection connection;
+
+    public CalculatriceFactory() {
+        this.configuration = new Configuration();
+    }
 
     public OperationRegistry creerRegistre() {
         OperationRegistry registre = new OperationRegistry();
@@ -29,12 +34,14 @@ public class CalculatriceFactory {
     }
 
     public IHistorique creerHistorique() {
-        String mode = "mysql";
+        String mode = configuration.getHistoriqueMode();
 
         if ("mysql".equalsIgnoreCase(mode)) {
             try {
                 connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/calculatrice", "root", "");
+                        configuration.getDbUrl(),
+                        configuration.getDbUser(),
+                        configuration.getDbPassword());
                 return new HistoriqueMySQL(connection);
             } catch (SQLException e) {
                 throw new RuntimeException("Erreur de connexion à la base de données.", e);
