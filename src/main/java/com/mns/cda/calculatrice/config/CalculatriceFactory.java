@@ -59,12 +59,12 @@ public class CalculatriceFactory {
     }
 
     public CalculatriceService creerService() {
-        OperationRegistre registry = creerRegistre();
+        OperationRegistre registre = creerRegistre();
         Decoupeur decoupeur = new Decoupeur();
-        Validateur validateur = new Validateur(registry);
+        Validateur validateur = new Validateur(registre);
         IHistorique historique = creerHistorique();
 
-        return new CalculatriceService(decoupeur, validateur, registry, historique);
+        return new CalculatriceService(decoupeur, validateur, registre, historique);
     }
 
     public IHistorique getHistorique() {
