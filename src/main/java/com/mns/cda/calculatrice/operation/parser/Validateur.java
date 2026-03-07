@@ -1,6 +1,6 @@
 package com.mns.cda.calculatrice.operation.parser;
 
-import com.mns.cda.calculatrice.operation.OperationRegistre;
+import com.mns.cda.calculatrice.operation.OperationRegistry;
 import com.mns.cda.calculatrice.operation.exception.FormatIncorrectException;
 import com.mns.cda.calculatrice.operation.exception.OperateurInconnuException;
 import com.mns.cda.calculatrice.operation.exception.ValeurNonNumeriqueException;
@@ -11,9 +11,9 @@ import com.mns.cda.calculatrice.operation.exception.ValeurNonNumeriqueException;
  */
 public class Validateur {
 
-    private final OperationRegistre registre;
+    private final OperationRegistry registre;
 
-    public Validateur(OperationRegistre registre) {
+    public Validateur(OperationRegistry registre) {
         this.registre = registre;
     }
 

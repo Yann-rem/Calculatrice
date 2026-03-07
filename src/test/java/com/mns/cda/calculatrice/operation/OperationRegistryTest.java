@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class OperationRegistreTest {
+public class OperationRegistryTest {
 
-    private OperationRegistre registre;
+    private OperationRegistry registre;
 
     @BeforeEach
     void setUp() {
-        registre = new OperationRegistre();
+        registre = new OperationRegistry();
         registre.enregistrer(new Addition());
         registre.enregistrer(new Soustraction());
         registre.enregistrer(new Multiplication());

@@ -19,7 +19,7 @@ public class CalculatriceServiceIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        OperationRegistre registre = new OperationRegistre();
+        OperationRegistry registre = new OperationRegistry();
         registre.enregistrer(new Addition());
         registre.enregistrer(new Soustraction());
         registre.enregistrer(new Multiplication());

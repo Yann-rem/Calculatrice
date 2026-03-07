@@ -12,13 +12,13 @@ public class CalculatriceService {
 
     private final Decoupeur decoupeur;
     private final Validateur validateur;
-    private final OperationRegistre registre;
+    private final OperationRegistry registre;
     private final IHistorique historique;
 
     public CalculatriceService(
             Decoupeur decoupeur,
             Validateur validateur,
-            OperationRegistre registre,
+            OperationRegistry registre,
             IHistorique historique
     ) {
         this.decoupeur = decoupeur;
