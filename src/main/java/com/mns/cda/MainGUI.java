@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 public class MainGUI {
 
     public static void main(String[] args) {
+
         CalculatriceFactory fabrique = new CalculatriceFactory();
 
         IHistorique historique = fabrique.creerHistorique();
