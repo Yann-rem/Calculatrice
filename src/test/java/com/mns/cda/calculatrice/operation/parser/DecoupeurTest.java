@@ -45,4 +45,29 @@ public class DecoupeurTest {
     void expressionEspaces() {
         assertThrows(IllegalArgumentException.class, () -> decoupeur.decouper("   "));
     }
+
+    @Test
+    @DisplayName("Découpe avec trop de jetons")
+    void decoupeTropDeJetons() {
+        String[] jetons = decoupeur.decouper("1 + 2 + 3");
+        assert jetons.length == 5;
+    }
+
+    @Test
+    @DisplayName("Découpe sans espaces")
+    void decoupeSansEspaces() {
+        assertArrayEquals(new String[]{"1", "+", "1"}, decoupeur.decouper("1+1"));
+    }
+
+    @Test
+    @DisplayName("Découpe sans espaces avec nombre négatif")
+    void decoupeSansEspacesNombreNegatif() {
+        assertArrayEquals(new String[]{"-3", "+", "2"}, decoupeur.decouper("-3+2"));
+    }
+
+    @Test
+    @DisplayName("Découpe avec double opérateur donne trois jetons")
+    void decoupeDoubleOperateur() {
+        assertArrayEquals(new String[]{"1", "//", "1"}, decoupeur.decouper("1 // 1"));
+    }
 }

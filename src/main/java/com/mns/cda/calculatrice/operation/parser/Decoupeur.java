@@ -16,14 +16,21 @@ public class Decoupeur {
             throw new IllegalArgumentException("l'expression ne peut pas être vide");
         }
 
-        String nettoye = expression.trim();
+        String[] jetons = expression.trim().split("\\s+");
 
-        // Recherche d'un caractère non numérique, non point ou non espace.
-        for (int i = 1; i < nettoye.length(); i++) {
-            char c = nettoye.charAt(i);
-            if (!Character.isDigit(c) && c != '.' && c != ' ') {
-                String valeur1 = nettoye.substring(0, i).trim();
-                String valeur2 = nettoye.substring(i + 1).trim();
+        if (jetons.length == 1) {
+            return decouperSansEspaces(jetons[0]);
+        }
+
+        return jetons;
+    }
+
+    private String[] decouperSansEspaces(String expression) {
+        for (int i = 1; i < expression.length(); i++) {
+            char c = expression.charAt(i);
+            if (!Character.isDigit(c) && c != '.') {
+                String valeur1 = expression.substring(0, i);
+                String valeur2 = expression.substring(i + 1);
 
                 if (!valeur1.isEmpty() && !valeur2.isEmpty()) {
                     return new String[]{valeur1, String.valueOf(c), valeur2};
@@ -31,7 +38,6 @@ public class Decoupeur {
             }
         }
 
-        // Le Validateur gère l'exception en dernier recours.
-        return new String[]{nettoye};
+        return new String[]{expression};
     }
 }
