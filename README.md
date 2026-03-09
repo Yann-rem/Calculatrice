@@ -85,6 +85,8 @@ Le diagramme de classes UML du projet :
 
 **Arborescence pragmatique** : Certains packages ne contiennent que peu de fichiers. Aucun sous-package supplémentaire n’a été créé lorsque le nombre de classes ne le justifiait pas, afin de privilégier la lisibilité à une hiérarchie trop profonde.
 
+**Chaîne de responsabilité pour la validation** : Le `Validateur` délègue la validation à une liste de règles implémentant `IRegleValidation` (`RegleFormat`, `RegleValeurNumerique`, `RegleOperateur`). Ajouter une nouvelle règle de validation se fait en créant une classe, sans modifier le `Validateur` (Open/Closed Principle).
+
 **Convention de nommage mixte** : Les noms de classes et méthodes métier sont en français (ex : `Decoupeur`, `Validateur`, `calculer`, `evaluer`) pour refléter le domaine. Les termes universels en Java restent en anglais (ex : `get`, `Exception`, `Factory`, `Registry`, `Service`, `parser`, `model`) car les franciser serait contre-productif et nuirait à la lisibilité pour tout développeur Java.
 
 ## Pistes d'amélioration
@@ -92,6 +94,3 @@ Le diagramme de classes UML du projet :
 - Tests de la couche de persistance avec une base en mémoire (H2) ou avec des dépendances simulées via Mockito.
 - Gestion des opérateurs unaires (racine carrée, factorielle)
 - Support des expressions complexes avec priorité des opérateurs via l'algorithme **Shunting Yard** de Dijkstra (voir [Java Program to Implement Shunting Yard Algorithm](https://www.geeksforgeeks.org/java/java-program-to-implement-shunting-yard-algorithm/))
-- Validation extensible via **chaîne de responsabilité** : transformer le `Validateur` en pipeline de règles
-  indépendantes, chacune responsable d'une seule vérification, permettant l'ajout de nouvelles règles sans modifier le
-  code existant (voir [Chaîne de responsabilité](https://refactoring.guru/fr/design-patterns/chain-of-responsibility)).
