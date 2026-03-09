@@ -20,7 +20,13 @@ Implémentation d’une calculatrice en Java illustrant les principes de la prog
 
 ### Configuration
 
-Modifier le fichier `config.properties` à la racine du projet pour configurer le mode d'historique et la connexion à la base de données :
+Copier le fichier d'exemple puis le modifier :
+
+```bash
+cp config.properties.example config.properties
+```
+
+Configurer le mode d'historique et la connexion à la base de données :
 
 ```properties
 historique.mode=mysql
