@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -22,7 +24,12 @@ public class ValidateurTest {
         registre.enregistrer(new Soustraction());
         registre.enregistrer(new Multiplication());
         registre.enregistrer(new Division());
-        validateur = new Validateur(registre);
+        List<IRegleValidation> regles = List.of(
+                new RegleFormat(),
+                new RegleValeurNumerique(),
+                new RegleOperateur(registre)
+        );
+        validateur = new Validateur(regles);
     }
 
     @Test

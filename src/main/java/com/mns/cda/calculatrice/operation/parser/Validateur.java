@@ -1,56 +1,27 @@
 package com.mns.cda.calculatrice.operation.parser;
 
-import com.mns.cda.calculatrice.operation.OperationRegistry;
-import com.mns.cda.calculatrice.operation.exception.FormatIncorrectException;
-import com.mns.cda.calculatrice.operation.exception.OperateurInconnuException;
-import com.mns.cda.calculatrice.operation.exception.ValeurNonNumeriqueException;
+import java.util.List;
 
 /**
  * Responsable de la validation des jetons d'une expression arithmétique.
- * Vérifie le format, les valeurs numériques et l'opérateur.
+ * Délègue la validation à une chaîne de règles implémentant IRegleValidation.
  */
 public class Validateur {
 
-    private final OperationRegistry registre;
+    private final List<IRegleValidation> regles;
 
-    public Validateur(OperationRegistry registre) {
-        this.registre = registre;
+    public Validateur(List<IRegleValidation> regles) {
+        this.regles = regles;
     }
 
     /**
-     * Valide un tableau de jetons représentant une expression arithmétique.
+     * Valide un tableau de jetons en appliquant chaque règle.
      *
      * @param jetons jetons à valider
-     * @throws FormatIncorrectException    si le nombre de jetons est incorrect
-     * @throws ValeurNonNumeriqueException si une valeur n'est pas numérique
-     * @throws OperateurInconnuException   si l'opérateur n'est pas reconnu
      */
     public void valider(String[] jetons) {
-        validerFormat(jetons);
-        validerValeurNumerique(jetons[0]);
-        validerOperateur(jetons[1]);
-        validerValeurNumerique(jetons[2]);
-    }
-
-    private void validerFormat(String[] jetons) {
-        if (jetons.length != 3) {
-            throw new FormatIncorrectException(
-                    "L'expression doit contenir 3 éléments (valeur opérateur valeur)"
-            );
-        }
-    }
-
-    private void validerValeurNumerique(String valeur) {
-        try {
-            Double.parseDouble(valeur);
-        } catch (NumberFormatException e) {
-            throw new ValeurNonNumeriqueException(valeur);
-        }
-    }
-
-    private void validerOperateur(String operateur) {
-        if (!registre.contient(operateur)) {
-            throw new OperateurInconnuException(operateur);
+        for (IRegleValidation regle : regles) {
+            regle.valider(jetons);
         }
     }
 }

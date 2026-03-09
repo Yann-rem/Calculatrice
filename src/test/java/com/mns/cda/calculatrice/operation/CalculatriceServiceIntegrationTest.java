@@ -5,11 +5,12 @@ import com.mns.cda.calculatrice.operation.exception.FormatIncorrectException;
 import com.mns.cda.calculatrice.operation.exception.OperateurInconnuException;
 import com.mns.cda.calculatrice.operation.exception.ValeurNonNumeriqueException;
 import com.mns.cda.calculatrice.operation.historique.HistoriqueEnMemoire;
-import com.mns.cda.calculatrice.operation.parser.Decoupeur;
-import com.mns.cda.calculatrice.operation.parser.Validateur;
+import com.mns.cda.calculatrice.operation.parser.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +27,12 @@ public class CalculatriceServiceIntegrationTest {
         registre.enregistrer(new Division());
 
         Decoupeur decoupeur = new Decoupeur();
-        Validateur validateur = new Validateur(registre);
+        List<IRegleValidation> regles = List.of(
+                new RegleFormat(),
+                new RegleValeurNumerique(),
+                new RegleOperateur(registre)
+        );
+        Validateur validateur = new Validateur(regles);
         HistoriqueEnMemoire historique = new HistoriqueEnMemoire();
         service = new CalculatriceService(decoupeur, validateur, registre, historique);
     }

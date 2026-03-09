@@ -3,12 +3,12 @@ package com.mns.cda.calculatrice.config;
 import com.mns.cda.calculatrice.operation.*;
 import com.mns.cda.calculatrice.operation.historique.HistoriqueEnMemoire;
 import com.mns.cda.calculatrice.operation.historique.HistoriqueMySQL;
-import com.mns.cda.calculatrice.operation.parser.Decoupeur;
-import com.mns.cda.calculatrice.operation.parser.Validateur;
+import com.mns.cda.calculatrice.operation.parser.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Fabrique responsable de l'assemblage des dépendances de l'application.
@@ -61,7 +61,12 @@ public class CalculatriceFactory {
     public CalculatriceService creerService() {
         OperationRegistry registre = creerRegistre();
         Decoupeur decoupeur = new Decoupeur();
-        Validateur validateur = new Validateur(registre);
+        List<IRegleValidation> regles = List.of(
+                new RegleFormat(),
+                new RegleValeurNumerique(),
+                new RegleOperateur(registre)
+        );
+        Validateur validateur = new Validateur(regles);
         IHistorique historique = creerHistorique();
 
         return new CalculatriceService(decoupeur, validateur, registre, historique);
