@@ -26,16 +26,14 @@ Copier le fichier d'exemple puis le modifier :
 cp config.properties.example config.properties
 ```
 
-Configurer le mode d'historique et la connexion à la base de données :
+Par défaut, l'historique fonctionne en mémoire. Pour utiliser MySQL, remplacer `memoire` par `mysql` et renseigner les paramètres de connexion :
 
 ```properties
-historique.mode=mysql
+historique.mode=memoire
 db.url=jdbc:mysql://localhost:3306/calculatrice
 db.user=root
 db.password=
 ```
-
-Pour utiliser l'historique en mémoire, remplacer `mysql` par `memoire`.
 
 ### Base de données
 

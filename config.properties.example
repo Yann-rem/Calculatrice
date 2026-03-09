@@ -1,4 +1,4 @@
-historique.mode=mysql
+historique.mode=memoire
 db.url=jdbc:mysql://localhost:3306/calculatrice
 db.user=root
 db.password=
