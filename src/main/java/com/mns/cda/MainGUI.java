@@ -18,8 +18,8 @@ public class MainGUI {
 
         CalculatriceFactory fabrique = new CalculatriceFactory();
 
-        IHistorique historique = fabrique.creerHistorique();
-        CalculatriceService service = fabrique.creerService();
+        IHistorique historique = fabrique.getHistorique();
+        CalculatriceService service = fabrique.getService();
 
         SwingUtilities.invokeLater(() -> {
             CalculatriceGUI gui = new CalculatriceGUI(service, historique);

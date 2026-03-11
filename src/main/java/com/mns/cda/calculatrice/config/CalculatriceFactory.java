@@ -15,50 +15,15 @@ import java.util.List;
  */
 public class CalculatriceFactory {
 
-    private final Configuration configuration;
+    private final IHistorique historique;
+    private final CalculatriceService service;
     private Connection connection;
-    private IHistorique historique;
 
     public CalculatriceFactory() {
-        this.configuration = new Configuration();
-    }
+        Configuration configuration = new Configuration();
 
-    public OperationRegistry creerRegistre() {
-        OperationRegistry registre = new OperationRegistry();
-        registre.enregistrer(new Addition());
-        registre.enregistrer(new Soustraction());
-        registre.enregistrer(new Multiplication());
-        registre.enregistrer(new Division());
-        registre.enregistrer(new Modulo());
-        registre.enregistrer(new Puissance());
-        return registre;
-    }
+        this.historique = creerHistorique(configuration);
 
-    public IHistorique creerHistorique() {
-        if (historique != null) {
-            return historique;
-        }
-
-        String mode = configuration.getHistoriqueMode();
-
-        if ("mysql".equalsIgnoreCase(mode)) {
-            try {
-                connection = DriverManager.getConnection(
-                        configuration.getDbUrl(),
-                        configuration.getDbUser(),
-                        configuration.getDbPassword());
-                historique = new HistoriqueMySQL(connection);
-            } catch (SQLException e) {
-                throw new RuntimeException("Erreur de connexion à la base de données.", e);
-            }
-        } else {
-            historique = new HistoriqueEnMemoire();
-        }
-
-        return historique;
-    }
-
-    public CalculatriceService creerService() {
         OperationRegistry registre = creerRegistre();
         Decoupeur decoupeur = new Decoupeur();
         List<IRegleValidation> regles = List.of(
@@ -67,13 +32,16 @@ public class CalculatriceFactory {
                 new RegleOperateur(registre)
         );
         Validateur validateur = new Validateur(regles);
-        IHistorique historique = creerHistorique();
 
-        return new CalculatriceService(decoupeur, validateur, registre, historique);
+        this.service = new CalculatriceService(decoupeur, validateur, registre, historique);
     }
 
     public IHistorique getHistorique() {
-        return creerHistorique();
+        return historique;
+    }
+
+    public CalculatriceService getService() {
+        return service;
     }
 
     public void fermerConnection() {
@@ -84,5 +52,34 @@ public class CalculatriceFactory {
                 System.out.println("Erreur lors de la fermeture de la connexion : " + e.getMessage());
             }
         }
+    }
+
+    private OperationRegistry creerRegistre() {
+        OperationRegistry registre = new OperationRegistry();
+        registre.enregistrer(new Addition());
+        registre.enregistrer(new Soustraction());
+        registre.enregistrer(new Multiplication());
+        registre.enregistrer(new Division());
+        registre.enregistrer(new Modulo());
+        registre.enregistrer(new Puissance());
+        return registre;
+    }
+
+    private IHistorique creerHistorique(Configuration configuration) {
+        String mode = configuration.getHistoriqueMode();
+
+        if ("mysql".equalsIgnoreCase(mode)) {
+            try {
+                connection = DriverManager.getConnection(
+                        configuration.getDbUrl(),
+                        configuration.getDbUser(),
+                        configuration.getDbPassword());
+                return new HistoriqueMySQL(connection);
+            } catch (SQLException e) {
+                throw new RuntimeException("Erreur de connexion à la base de données.", e);
+            }
+        }
+
+        return new HistoriqueEnMemoire();
     }
 }

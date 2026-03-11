@@ -18,8 +18,8 @@ public class Main {
 
         CalculatriceFactory fabrique = new CalculatriceFactory();
 
-        IHistorique historique = fabrique.creerHistorique();
-        CalculatriceService service = fabrique.creerService();
+        IHistorique historique = fabrique.getHistorique();
+        CalculatriceService service = fabrique.getService();
 
         Scanner scanner = new Scanner(System.in);
 
