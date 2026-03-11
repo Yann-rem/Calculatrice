@@ -79,7 +79,7 @@ Le diagramme de classes UML du projet :
 
 **Séparation des responsabilités** : Le `Decoupeur` découpe l'expression en jetons, le `Validateur` vérifie leur validité en levant des exceptions personnalisées, le `CalculatriceService` orchestre le tout. Aucune logique métier dans les classes `Main` et `MainGUI`.
 
-**Initialisation lazy plutôt que Singleton** : La connexion MySQL et l'historique sont créés une seule fois via une initialisation lazy dans `CalculatriceFactory`. Contrairement au pattern Singleton, cette approche évite le couplage global et préserve la testabilité, tout en garantissant l'unicité de l'instance.
+**Factory avec assemblage au démarrage** : `CalculatriceFactory` assemble toutes les dépendances dans son constructeur et expose de simples getters. Pas de lazy initialization ni de Singleton : tout est créé une seule fois au démarrage, ce qui rend le flux explicite et prévisible.
 
 **Configuration externalisée** : Le choix entre historique en mémoire et MySQL se fait via un fichier de propriétés, sans modification du code source.
 
